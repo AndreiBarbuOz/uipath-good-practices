@@ -1,7 +1,7 @@
 
-## Good practices in development
+# Good practices in development
 
-### The rationale
+## The rationale
 
 As software engineers, we believe it is self-evident that the success of most endeavors in the field are dependent on the practices of the team. Choosing the correct tools, the correct architecture and technological solution are important, but our day to day practices, when we don&#39;t move mountains but rather ever so slightly advance our project, make the difference.
 
@@ -23,7 +23,7 @@ Test suits are there to ensure that once a solution is found, any future changes
 
 While there is no book on good practices in RPA (yet), we can infer the translation of such practices.
 
-### General considerations
+## General considerations
 
 By their nature, most workflows will be stateful. They rely that the application being automated is in a specific state, on a specific page or screen, with certain controls present or activated or disactivated.
 
@@ -35,7 +35,7 @@ While automated tests strive to isolate workflows, it is usually the case that m
 
 
 
-### The checklist
+## The checklist
 
 ### Inside the workflow
 
