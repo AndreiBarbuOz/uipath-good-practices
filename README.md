@@ -72,12 +72,12 @@ While automated tests strive to isolate workflows, it is usually the case that m
 ### Inside the workflow
 
 1. The workflows should contain, at the minimum, an initial comments/annotations section with:
-  1. General purpose of workflow
-  2. Arguments (both in and out)
-  3. Assumptions: usually regarding the state of the application being automated (what is the current page/screen, what is the current page of the terminal session and so on)
-  4. Throws: the list of exceptions that the workflow throws and what is their significance
-  5. Output: the state of the system/application/screen/page after the workflow is invoked
-![Annotations](/images/annotations.jpg)
+	1. General purpose of workflow
+	2. Arguments (both in and out)
+	3. Assumptions: usually regarding the state of the application being automated (what is the current page/screen, what is the current page of the terminal session and so on)
+	4. Throws: the list of exceptions that the workflow throws and what is their significance
+	5. Output: the state of the system/application/screen/page after the workflow is invoked 
+![Annotations](/images/annotations.JPG)
 2. Windows, UI elements, terminal sessions should be opened/found only once and then passed as arguments to invoked workflows, rather than attach the window at the beginning of workflows. This minimizes the risk of inadvertently attaching a wrong window, especially if there is a possibility of having more than one window of the same process open at the same time
 3. Workflows should be atomic in their intended functionality and small enough to express their complete functionality in one sentence or two. If this is not the case, seams should be searched so that the workflow can be further broken up into sub components
 4. Workflows that are more complex should be broken up into reusable pieces of code. These complex workflows should strive to leave the overall system in the exact state it was before execution (windows that are open, pages or screens in apps). The state is referring exclusively to the presentation layer, not about data persistence which can obviously be changed. For example: Search for member -\&gt; Open member page -\&gt; extract relevant information -\&gt; Close member page and return to initial landing page
