@@ -25,9 +25,39 @@ While there is no book on good practices in RPA (yet), we can infer the translat
 
 ## General considerations
 
+### Libraries
+
 ![automation-breakdown](/images/automation-breakdown.jpeg)
 
-By their nature, most workflows will be stateful. They rely that the application being automated is in a specific state, on a specific page or screen, with certain controls present or activated or disactivated.
+The applications that are automated offer a wide range of functionality. Usually, processes span across multiple applications and interact with each application through a limited subset of those functionalities. Among these functionalities, from a high level perspective, we can mention:
+* Initialize
+* Login
+* Search
+* Navigate
+* Check for a condition
+* Add record
+
+At first glance, "natural flow" of a process might be:
+`Initialize` Application A, `Login` and `Search for invoice #1234`. From the invoice screen, `Extract provider name` into clipboard and switch to Application B. In this application perform `Initialize`, `Login` and `Search for the provider` extracted from Application A. After the provider is found, check if the invoice was paid. Switch back to Application A and `Update invoice status`.
+
+A different way of viewing this process would be as a series of interactions which aggregate under the application which whom they happen. 
+
+1. Application A
+	* Initialize 
+	* Login
+	* Search for invoice
+	* Extract provider information from invoice
+	* Update invoice status
+2. Application B
+	* Initialize
+	* Login
+	* Search for provider
+	* Extract payment status
+
+
+
+### Testing
+By their nature, most workflows will be stateful. They rely that the application being automated is in a specific state, on a specific page or screen, with certain controls present or activated or disactivated. Also, it is obvious that some of the interactions between the automation and the underlying application will change the state of that application. This becomes quite problematic when there is no Test environment to test in. 
 
 Tests rely on the state of the applications that are being automated, or on the state of the system. They rely on users present in the database, emails in the inbox, documents on a shared drive.
 
@@ -47,6 +77,7 @@ While automated tests strive to isolate workflows, it is usually the case that m
   3. Assumptions: usually regarding the state of the application being automated (what is the current page/screen, what is the current page of the terminal session and so on)
   4. Throws: the list of exceptions that the workflow throws and what is their significance
   5. Output: the state of the system/application/screen/page after the workflow is invoked
+![Annotations](/images/annotations.jpg)
 2. Windows, UI elements, terminal sessions should be opened/found only once and then passed as arguments to invoked workflows, rather than attach the window at the beginning of workflows. This minimizes the risk of inadvertently attaching a wrong window, especially if there is a possibility of having more than one window of the same process open at the same time
 3. Workflows should be atomic in their intended functionality and small enough to express their complete functionality in one sentence or two. If this is not the case, seams should be searched so that the workflow can be further broken up into sub components
 4. Workflows that are more complex should be broken up into reusable pieces of code. These complex workflows should strive to leave the overall system in the exact state it was before execution (windows that are open, pages or screens in apps). The state is referring exclusively to the presentation layer, not about data persistence which can obviously be changed. For example: Search for member -\&gt; Open member page -\&gt; extract relevant information -\&gt; Close member page and return to initial landing page
