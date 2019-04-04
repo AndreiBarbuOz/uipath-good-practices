@@ -25,6 +25,8 @@ While there is no book on good practices in RPA (yet), we can infer the translat
 
 ## General considerations
 
+![automation-breakdown](/images/automation-breakdown.jpeg)
+
 By their nature, most workflows will be stateful. They rely that the application being automated is in a specific state, on a specific page or screen, with certain controls present or activated or disactivated.
 
 Tests rely on the state of the applications that are being automated, or on the state of the system. They rely on users present in the database, emails in the inbox, documents on a shared drive.
@@ -57,8 +59,7 @@ While automated tests strive to isolate workflows, it is usually the case that m
 1. Workflows should be grouped by the underlying application they automate
 2. Workflows should have meaningful names that convey the exact message of what is their purpose.
 3. If workflows are created for later use as libraries, they should not duplicate information. Names such as test\_1 should be used exclusively for dev purposes and removed from the project as soon as they are not needed anymore.
-4.
-4.Folder structure should be uniform and consistent. At the very least, a basic folder structure should consist of a src (for source) and tests (for tests). Deeper folder structures under src can be used if the workflows can be grouped by logical similarities or functionality. Under tests additional folders can be used to store assets used by the testing framework
+4. Folder structure should be uniform and consistent. At the very least, a basic folder structure should consist of a src (for source) and tests (for tests). Deeper folder structures under src can be used if the workflows can be grouped by logical similarities or functionality. Under tests additional folders can be used to store assets used by the testing framework
  
 ## Good practices in testing
 
