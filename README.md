@@ -3,7 +3,7 @@
 
 ## The rationale
 
-As software engineers, we believe it is self-evident that the success of most endeavors in the field are dependent on the practices of the team. Choosing the correct tools, the correct architecture and technological solution are important, but our day to day practices, when we don&#39;t move mountains but rather ever so slightly advance our project, make the difference.
+As software engineers, we believe it is self-evident that the success of most endeavors in the field are dependent on the practices of the team. Choosing the correct tools, the correct architecture and technological solution are important, but our day to day practices, when we don't move mountains but rather ever so slightly advance our project, make the difference.
 
 Automation projects have overall long feedback loops and success, or failure is measured over vast expanses of time. For this reason, it is important to have a long-term approach when it comes to implementation rather than a quick win view. This has implications for development time initially, but it pays off when it comes to debugging, maintenance, further projects using reusable pieces of code or handoff procedures
 
@@ -17,15 +17,15 @@ It is for these reasons that, regardless of the kind of organization undertaking
 
 Does this feel like we are preaching to the choir? These are the end goals of any organization and these goals and phrases have been used and over-used over time and space.
 
-But we are having this conversation because over the past decade practices have emerged that have constituted the underpinnings for meteoric rises of some organizations involved in technology, companies that did not exist two decades ago and now are market leaders in their respective fields. These practices can be found under different names, but they constitute the same broad category of approaches to developing pieces of software or IT projects. Such practices are usually revolving around creating testing harnesses that fix in place solutions, automated testing frameworks, projects that are always in a state of &quot;incomplete but ready to run&quot; rather than &quot;complete sub-systems and impossible to run&quot;, continuous monitoring of systems and their constituent components and the list can go on.
+But we are having this conversation because over the past decade practices have emerged that have constituted the underpinnings for meteoric rises of some organizations involved in technology, companies that did not exist two decades ago and now are market leaders in their respective fields. These practices can be found under different names, but they constitute the same broad category of approaches to developing pieces of software or IT projects. Such practices are usually revolving around creating testing harnesses that fix in place solutions, automated testing frameworks, projects that are always in a state of "incomplete but ready to run" rather than "complete sub-systems and impossible to run", continuous monitoring of systems and their constituent components and the list can go on.
 
-Test suits are there to ensure that once a solution is found, any future changes will not impact the work completed already. Test harnesses that are run automatically ensure that adding new functionality or alterations in the work done already does not have unintended consequences. Id est, fixes for one case that break other cases if not tested properly.
+Test suits are there to ensure that once a solution is found, any future changes will not impact the work completed already. Test harnesses that are run automatically ensure that adding new functionality or alterations in the work done already does not have unintended consequences. _Id est_, fixes for one case that break other cases if not tested properly.
 
 While there is no book on good practices in RPA (yet), we can infer the translation of such practices.
 
 ## General considerations
 
-### Libraries
+### Design for reusability
 
 ![automation-breakdown](/images/automation-breakdown.jpeg)
 
@@ -56,34 +56,59 @@ A different way of viewing this process would be as a series of interactions whi
 
 
 
-### Testing
+### Design for testability
 By their nature, most workflows will be stateful. They rely that the application being automated is in a specific state, on a specific page or screen, with certain controls present or activated or disactivated. Also, it is obvious that some of the interactions between the automation and the underlying application will change the state of that application. This becomes quite problematic when there is no Test environment to test in. 
 
 Tests rely on the state of the applications that are being automated, or on the state of the system. They rely on users present in the database, emails in the inbox, documents on a shared drive.
 
 Fail fast and obviously. Failures should be caught in Dev and/or UAT, not in production. **A major fallacy exhibited is the belief that applications have deterministic behaviors**. There are innumerable applications which behave inconsistently, with controls that move, popups that appear and disappear without predictability. For this reason, tests should be performed in loops of tens or hundreds of iterations, for the workflows that are likely to fail.
 
-While automated tests strive to isolate workflows, it is usually the case that more than one functionality is tested. It is not possible to test a hypothetical Search function without testing both &quot;Initialize application&quot; and &quot;Close application&quot;. So, there seems to be an incremental approach to testing, with more advanced tests relying on the good implementation of more &quot;basic&quot; workflows.
-
-
+While automated tests strive to isolate workflows, it is usually the case that more than one functionality is tested. It is not possible to test a hypothetical Search function without testing both `Initialize application` and `Close application`. So, there seems to be an incremental approach to testing, with more "advanced" tests relying on the good implementation of more "basic" workflows.
 
 ## The checklist
 
 ### Inside the workflow
 
 1. The workflows should contain, at the minimum, an initial comments/annotations section with:
-	1. General purpose of workflow
-	2. Arguments (both in and out)
-	3. Assumptions: usually regarding the state of the application being automated (what is the current page/screen, what is the current page of the terminal session and so on)
-	4. Throws: the list of exceptions that the workflow throws and what is their significance
-	5. Output: the state of the system/application/screen/page after the workflow is invoked 
+	* General purpose of workflow
+	* Arguments (both in and out)
+	* Assumptions: usually regarding the state of the application being automated (what is the current page/screen, what is the current page of the terminal session and so on)
+	* Throws: the list of exceptions that the workflow throws and what is their significance
+	* Output: the state of the system/application/screen/page after the workflow is invoked 
 ![Annotations](/images/annotations.JPG)
-2. Windows, UI elements, terminal sessions should be opened/found only once and then passed as arguments to invoked workflows, rather than attach the window at the beginning of workflows. This minimizes the risk of inadvertently attaching a wrong window, especially if there is a possibility of having more than one window of the same process open at the same time
+2. Windows, browsers, terminal sessions should be opened/found only once and then passed as arguments to invoked workflows, rather than attach the window at the beginning of workflows. This minimizes the risk of inadvertently attaching a wrong window, especially if there is a possibility of having more than one window of the same process open at the same time
+
+	* Opening a browser: 
+	![Open Browser](/images/open-browser.jpg)
+
+	* Capturing the browser as an **object**
+	![Capture browser](/images/browser-output.jpg)
+
+	* Using the **object** as a reference to the opened browser in subsequent workflows
+	![Attach browser](/images/attach-browser.jpg) 
 3. Workflows should be atomic in their intended functionality and small enough to express their complete functionality in one sentence or two. If this is not the case, seams should be searched so that the workflow can be further broken up into sub components
-4. Workflows that are more complex should be broken up into reusable pieces of code. These complex workflows should strive to leave the overall system in the exact state it was before execution (windows that are open, pages or screens in apps). The state is referring exclusively to the presentation layer, not about data persistence which can obviously be changed. For example: Search for member -\&gt; Open member page -\&gt; extract relevant information -\&gt; Close member page and return to initial landing page
-5. When considering the seams that the library/workflows will be divided on, the testing phase should be taken into consideration. There should be a purpose to Unittest the workflow&#39;s functionality
+4. Workflows that are more complex should be broken up into reusable pieces of code. These complex workflows should strive to leave the overall system in the exact state it was before execution (windows that are open, pages or screens in apps). The state is referring exclusively to the presentation layer, not about data persistence which can obviously be changed. For example: 
+
+```
+Search for member -> Open member page -> extract relevant information -> Close member page and return to initial landing page
+```
+5. When considering the seams that the library/workflows will be divided on, the testing phase should be taken into consideration.
+ There should be a purpose to Unittest the workflow's functionality
 6. Because of the stateful nature of workflows, call between different libraries should be avoided and deferred to invoking workflows for making the decision. For example: library1/workflow1.xaml calling library2/workflow2.xaml. This should be handled via the invoking workflow: process1.xaml invokes library1/workflow1.xaml and after that invokes library2/workflow2.xaml
-7. Except for very simple workflows, Dictionaries should be preferred when passing arguments between workflows. The equivalent of an unknown number of arguments until runtime confers flexibility and easier maintenance. Also, it provides for the ability to have the equivalence to &quot;Interfaces&quot;, when different workflows have the same argument &quot;signature&quot; and allow the same invocation (for example in a ForEach loop)
+7. Except for very simple workflows, Dictionaries should be preferred when passing arguments between workflows. The equivalent of an unknown number of arguments until runtime confers flexibility and easier maintenance. Also, it provides for the ability to have the equivalence to "Interfaces", when different workflows have the same argument "signature" and allow the same invocation (for example in a ForEach loop)
+
+#### Testing strategies
+
+1. Test existence and responsiveness of selectors
+	- Can be considered a smoke test
+	- Usually used in instances where data is input in some tabular format and most/all selectors bear large similarities
+	![Tabular data](/images/tabular-check.jpg)
+	- Checks would be performed in 3 steps:
+		- Check existence of field
+		- type into/check box/select from drop-down
+		- verify that the interaction was successful and data was input into the field 
+2. Test Functionality of library workflows
+3. Test end to end processes
 
 ### Outside the workflow
 
