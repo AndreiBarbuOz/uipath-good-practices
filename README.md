@@ -75,7 +75,7 @@ While automated tests strive to isolate workflows, it is usually the case that m
 	* Assumptions: usually regarding the state of the application being automated (what is the current page/screen, what is the current page of the terminal session and so on)
 	* Throws: the list of exceptions that the workflow throws and what is their significance
 	* Output: the state of the system/application/screen/page after the workflow is invoked 
-![Annotations](/images/annotations.JPG)
+![Annotations](/images/annotations.jpg)
 2. Windows, browsers, terminal sessions should be opened/found only once and then passed as arguments to invoked workflows, rather than attach the window at the beginning of workflows. This minimizes the risk of inadvertently attaching a wrong window, especially if there is a possibility of having more than one window of the same process open at the same time
 
 	* Opening a browser: 
