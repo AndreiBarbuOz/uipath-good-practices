@@ -96,6 +96,15 @@ Search for member -> Open member page -> extract relevant information -> Close m
  There should be a purpose to Unittest the workflow's functionality
 6. Because of the stateful nature of workflows, call between different libraries should be avoided and deferred to invoking workflows for making the decision. For example: library1/workflow1.xaml calling library2/workflow2.xaml. This should be handled via the invoking workflow: process1.xaml invokes library1/workflow1.xaml and after that invokes library2/workflow2.xaml
 7. Except for very simple workflows, Dictionaries should be preferred when passing arguments between workflows. The equivalent of an unknown number of arguments until runtime confers flexibility and easier maintenance. Also, it provides for the ability to have the equivalence to "Interfaces", when different workflows have the same argument "signature" and allow the same invocation (for example in a ForEach loop)
+8. The number of arguments for workflows should be limited to no more than 6. If more are needed, two strategies can be employed:
+	* the workflow should be broken into multiple workflows
+	* arguments should be aggregated into collections/dictionaries
+9. Similarily to 8., the number of variables should be restricted to a reasonable value. There is clear evidence that more than 8 variables is difficult to manage at the same time. 
+
+### Passing arguments
+
+
+
 
 #### Testing strategies
 
