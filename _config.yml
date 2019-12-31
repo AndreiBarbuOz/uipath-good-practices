@@ -1,0 +1,10 @@
+# Site settings
+title: UiPath Good practices
+tag_text: UiPath good practices
+description: UiPath development good practices guide
+
+# Build settings
+markdown: kramdown
+exclude: ["README.md"]
+sass:
+  style: compressed

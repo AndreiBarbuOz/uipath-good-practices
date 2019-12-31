@@ -1,5 +1,6 @@
-
-# Good practices in development
+---
+layout: default
+---
 
 ## The rationale
 
