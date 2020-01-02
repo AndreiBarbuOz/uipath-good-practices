@@ -1,11 +1,6 @@
-## Deprecated: Use my new theme "Duo" instead:
+## UiPath good practices guide
 
-[https://chibicode.github.io/duo/](https://chibicode.github.io/duo/)
+Build and hosted [here](https://andreibarbuoz.github.io/uipath-good-practices/)
+Forks and issues are welcome.
 
----
 
-# Solo
-
-[Solo](http://chibicode.github.io/solo) is a Jekyll theme that supports **single-page websites** only, but supports them well. Yes, it's responsive.
-
-### [Demo & Documentation &rarr;](http://chibicode.github.io/solo)
