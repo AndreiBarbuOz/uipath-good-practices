@@ -2,6 +2,17 @@
 layout: default
 ---
 
+Repository and contributions [here](https://github.com/AndreiBarbuOz/uipath-good-practices)
+
+<!-- Place this tag where you want the button to render. -->
+<a class="github-button" href="https://github.com/AndreiBarbuOz/uipath-good-practices/fork" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-icon="octicon-repo-forked" data-size="large" data-show-count="true" aria-label="Fork AndreiBarbuOz/uipath-good-practices on GitHub">Fork</a>
+
+<!-- Place this tag where you want the button to render. -->
+<a class="github-button" href="https://github.com/AndreiBarbuOz" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-size="large" data-show-count="true" aria-label="Follow @AndreiBarbuOz on GitHub">Follow @AndreiBarbuOz</a>
+
+<!-- Place this tag where you want the button to render. -->
+<a class="github-button" href="https://github.com/AndreiBarbuOz/uipath-good-practices" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star AndreiBarbuOz/uipath-good-practices on GitHub">Star</a>
+
 ## The rationale
 
 As software engineers, we believe it is self-evident that the success of most endeavors in the field are dependent on the practices of the team. Choosing the correct tools, the correct architecture and technological solution are important, but our day to day practices, when we don't move mountains but rather ever so slightly advance our project, make the difference.
