@@ -39,8 +39,6 @@ While there is no book on good practices in RPA (yet), we can infer the translat
 
 ### Design for reusability
 
-![automation-breakdown](/images/automation-breakdown.jpeg)
-
 The applications that are automated offer a wide range of functionality. Usually, processes span across multiple applications and interact with each application through a limited subset of those functionalities. Among these functionalities, from a high level perspective, we can mention:
 * Initialize
 * Login
@@ -48,6 +46,9 @@ The applications that are automated offer a wide range of functionality. Usually
 * Navigate
 * Check for a condition
 * Add record
+
+![automation-breakdown](/images/automation-breakdown.jpeg)
+
 
 At first glance, "natural flow" of a process might be:
 `Initialize` Application A, `Login` and `Search for invoice #1234`. From the invoice screen, `Extract provider name` into clipboard and switch to Application B. In this application perform `Initialize`, `Login` and `Search for the provider` extracted from Application A. After the provider is found, check if the invoice was paid. Switch back to Application A and `Update invoice status`.
